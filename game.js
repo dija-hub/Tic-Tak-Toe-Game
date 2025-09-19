@@ -1,12 +1,11 @@
 let boxes = document.querySelectorAll(".box");
 let resetbtn = document.querySelector("#reset-btn");
-let newGameBtn=document.querySelector("#new-btn");
-let msgcontainer=document.querySelector(".msg-container");
-let msg=document.querySelector("#msg")
+let newGameBtn = document.querySelector("#new-btn");
+let msgcontainer = document.querySelector(".msg-container");
+let msg = document.querySelector("#msg");
 
-let turnO = true; // O starts first
+let turnO = true; 
 
-// use ONE consistent name
 let winPatterns = [
   [0, 1, 2],
   [0, 3, 6],
@@ -18,11 +17,13 @@ let winPatterns = [
   [6, 7, 8],
 ];
 
-const resetGame =() =>{
-      turnO = true;
-      enableboxes();
-      msgContainer.classList.add("hide")
-}
+const resetGame = () => {
+  turnO = true;
+  enableBoxes();
+  msgcontainer.classList.add("hide");
+};
+
+
 boxes.forEach((box) => {
   box.addEventListener("click", () => {
     if (turnO) {
@@ -36,25 +37,32 @@ boxes.forEach((box) => {
     checkWinner();
   });
 });
-const disableboxes= ()=>{
-      for (let box of boxes){
-            box.disable=true;
-      }
-}
-const enableboxes= ()=>{
-      for (let box of boxes){
-            box.disable=flase;
-            box.innerText="";
-      }
-}
-const showWinner = (winner) =>{
-msg.innerText =`Winner is ${winner}`;
-msgcontainer.classList.remove("hide");
-disableboxes();
 
-}
+
+const disableBoxes = () => {
+  for (let box of boxes) {
+    box.disabled = true;
+  }
+};
+
+
+const enableBoxes = () => {
+  for (let box of boxes) {
+    box.disabled = false;
+    box.innerText = "";
+  }
+};
+
+
+const showWinner = (winner) => {
+  msg.innerText = `Winner is ${winner}`;
+  msgcontainer.classList.remove("hide");
+  disableBoxes();
+};
+
+
 const checkWinner = () => {
-  for (let pattern of winPatterns) { // match exact name
+  for (let pattern of winPatterns) {
     let pos1Val = boxes[pattern[0]].innerText;
     let pos2Val = boxes[pattern[1]].innerText;
     let pos3Val = boxes[pattern[2]].innerText;
@@ -67,6 +75,7 @@ const checkWinner = () => {
     }
   }
 };
+
 
 resetbtn.addEventListener("click", resetGame);
 newGameBtn.addEventListener("click", resetGame);
